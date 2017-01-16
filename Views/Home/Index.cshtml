@@ -1,11 +1,19 @@
-﻿@{
-    ViewBag.Title = "Mondo ASP.NET MVC Sample";
-}
+﻿@model IndexViewModel
 
-<h1 class="text-center">@ViewBag.Title</h1>
-
+<h1 class="text-center">Mondo ASP.NET MVC Sample</h1>
 <div class="row">
     <div class="col-md-12 text-center">
-        @Html.ActionLink("Login with Mondo", "Login", new {}, new {@class = "btn btn-lg btn-primary", role = "button"})
+        @if (Model.HasAccessToken)
+        {
+            <p>
+                Welcome. Please <a href="/monzo">click here</a> to go to your account details
+            </p>
+        }
+        else
+        {
+            <p>
+                We don't have your Mondo details yet. Please <a href="/monzo/activate">click here</a> to link your account.
+            </p>
+        }
     </div>
 </div>
