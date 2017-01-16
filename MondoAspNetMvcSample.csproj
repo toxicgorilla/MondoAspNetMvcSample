@@ -95,7 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="CryptoHelper.cs" />
+    <Compile Include="App_Classes\CryptoHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -110,6 +110,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\OAuthCallback.cshtml" />
+    <Content Include="Views\Home\web.config" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

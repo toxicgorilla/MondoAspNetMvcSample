@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Mondo;
-
-namespace MondoAspNetMvcSample.Models
+﻿namespace MondoAspNetMvcSample.Models
 {
+    using System.Collections.Generic;
+
+    using Mondo;
+
     public sealed class AccountSummaryModel
     {
         public Account Account { get; set; }
