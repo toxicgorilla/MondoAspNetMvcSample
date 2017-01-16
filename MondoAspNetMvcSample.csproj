@@ -111,6 +111,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\OAuthCallback.cshtml" />
     <Content Include="Views\Home\web.config" />
+    <Content Include="Web.AppSettings.config" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

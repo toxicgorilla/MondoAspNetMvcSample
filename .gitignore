@@ -196,3 +196,6 @@ FakesAssemblies/
 *.opt
 
 *.lock.json
+
+# Never commit changes to Web.AppSettings.config - to stop people accidentally pushing the Client ID or Client Secret to GitHub
+#Web.AppSettings.config
