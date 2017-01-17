@@ -1,12 +1,10 @@
 ﻿namespace MondoAspNetMvcSample.Controllers
 {
     using System;
-    using System.Linq;
     using System.Net;
     using System.Security;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using System.Web;
     using System.Web.Mvc;
 
     using Mondo;
@@ -16,38 +14,15 @@
     using MondoAspNetMvcSample.UserService;
     using MondoAspNetMvcSample.ViewModels.Monzo;
 
-    public class MonzoController : Controller
+    public class MonzoController : BaseController
     {
-        private UserService userService = new UserService();
+        private readonly UserService userService = new UserService();
 
         private readonly IMondoAuthorizationClient mondoAuthorizationClient;
 
         public MonzoController()
         {
-            this.mondoAuthorizationClient = new MondoAuthorizationClient(
-                AppSettings.MondoClientId,
-                AppSettings.MondoClientSecret,
-                "https://production-api.gmon.io");
-        }
-
-        public async Task<ActionResult> Index()
-        {
-            var accessToken = ClaimsPrincipal.Current.AccessToken();
-            if (accessToken == null)
-            {
-                this.RedirectToAction("Activate", "Monzo");
-            }
-
-            // Fetch transactions etc
-            using (var client = new MondoClient(accessToken, "https://production-api.gmon.io"))
-            {
-                var accounts = await client.GetAccountsAsync();
-                var balance = await client.GetBalanceAsync(accounts[0].Id);
-                
-                var viewModel = new IndexViewModel { Account = accounts[0], Balance = balance };
-
-                return this.View("Index", viewModel);
-            }
+            this.mondoAuthorizationClient = new MondoAuthorizationClient(AppSettings.MondoClientId, AppSettings.MondoClientSecret, AppSettings.MondoApiUrl);
         }
 
         public ActionResult Activate()
@@ -55,7 +30,7 @@
             var accessToken = ClaimsPrincipal.Current.AccessToken();
             if (accessToken != null)
             {
-                this.RedirectToAction("Index", "Monzo");
+                this.RedirectToAction("Index", "Home");
             }
 
             var viewModel = new ActivateViewModel();
@@ -72,15 +47,6 @@
             // send user to Mondo's login page
             return this.Redirect(this.mondoAuthorizationClient.GetAuthorizeUrl(state, this.Url.Action("OAuthCallback", "Monzo", null, this.Request.Url.Scheme)));
         }
-
-        public async Task<ActionResult> Transactions()
-        {
-            ////var transactions = await client.GetTransactionsAsync(accounts[0].Id, expand: "merchant");
-            throw new NotImplementedException();
-            var viewModel = new TransactionsViewModel();
-
-            return this.View("Transactions", viewModel);
-        }
         
         [HttpGet]
         public async Task<ActionResult> OAuthCallback(string code, string state)
@@ -96,10 +62,7 @@
 
             // HACK: Get rid of this!
 #if DEBUG
-            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
-            {
-                return true;
-            };
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 #endif
 
             // Exchange authorization code for access token
@@ -114,7 +77,7 @@
 
                 this.AddClaim(CustomClaimTypes.AccessToken, accessToken.Value);
 
-                return this.RedirectToAction("Index", "Monzo");
+                return this.RedirectToAction("Index", "Accounts");
             }
             catch (Exception ex)
             {
@@ -123,18 +86,6 @@
 
                 return this.View("OAuthCallback", viewModel);
             }
-        }
-
-        private void AddClaim(string claimType, string value)
-        {
-            // Remove existing claim if it exists
-            var claims = ClaimsPrincipal.Current.Claims.Where(c => c.Type != claimType).ToList();
-            claims.Add(new Claim(claimType, value));
-
-            var claimsIdentity = new ClaimsIdentity(claims, "MondoAspNetMvcSample");
-
-            var authenticationManager = this.HttpContext.GetOwinContext().Authentication;
-            authenticationManager.SignIn(claimsIdentity);
         }
     }
 }

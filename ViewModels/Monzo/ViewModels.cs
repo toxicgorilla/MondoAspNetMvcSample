@@ -11,11 +11,6 @@
         public Balance Balance { get; set; }
     }
 
-    public sealed class TransactionsViewModel
-    {
-        public IList<Transaction> Transactions { get; set; }
-    }
-
     public sealed class ActivateViewModel
     {
     }

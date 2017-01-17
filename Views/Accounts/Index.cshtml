@@ -1,0 +1,37 @@
+﻿@model IndexViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Account Overview</h2>
+        @if (Model.HasAccessToken)
+        {
+            <table class="table table-hover table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var account in Model.AccountSummaries)
+                {
+                    <tr>
+                        <td style="text-align: left;">
+                            <a href="@Url.Action("Detail", "Accounts", new { id = account.Id })" title="@account.Id (Created: @($"{account.CreatedDate:D}"))">@account.Description</a>
+                        </td>
+                        <td style="text-align: left;">
+                            @($"{account.CurrencyCode} {account.Balance / 100m:N}")
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>
+                We don't have your Monzo details yet. Please <a href="@Url.Action("Activate", "Monzo")">click here</a> to link your account.
+            </p>
+        }
+    </div>
+</div>

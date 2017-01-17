@@ -10,7 +10,7 @@
     using MondoAspNetMvcSample.ViewModels.Login;
 
     [AllowAnonymous]
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private readonly UserService userService = new UserService();
 
@@ -34,7 +34,7 @@
                     claims.Add(new Claim(CustomClaimTypes.AccessToken, user.AccessToken));
                 }
 
-                var claimsIdentity = new ClaimsIdentity(claims, "MondoAspNetMvcSample");
+                var claimsIdentity = new ClaimsIdentity(claims, AppSettings.AuthenticationCookie);
                 var authenticationManager = this.HttpContext.GetOwinContext().Authentication;
                 authenticationManager.SignIn(claimsIdentity);
 
