@@ -1,40 +1,53 @@
 ﻿@model IndexViewModel
 <style>
+    .login-box-container {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
     .login-box {
-        border: 1px solid #cdcdcd;
-        margin: 20px;
-        padding: 20px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .inner {
+        margin-left: auto;
+        margin-right: auto;
         width: 400px;
-        margin: 0 auto;
+        border: 1px solid #cdcdcd;
+        padding: 20px;
     }
 </style>
-
-<div class="row">
+<div class="login-box-container">
     <div class="login-box">
-        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-        {
-            <div class="alert alert-danger" role="alert">
-                @Model.ErrorMessage
-            </div>
-        }
-        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
-        {
-            <div class="form-group">
-                @Html.LabelFor(model => model.Username, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="inner">
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Model.ErrorMessage
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            }
+            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, new { @class = "control-label col-lg-4" })
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
-            </div>
-            <button type="submit" tabindex="3" class="btn btn-primary pull-right" name="action" value="submit">
-                Sign In
-            </button>
-            <div style="clear: both;"></div>
-        }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-lg-4" })
+                    <div class="col-lg-8">
+                        @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <button type="submit" tabindex="3" class="btn btn-primary pull-right" name="action" value="submit">
+                    Sign In
+                </button>
+                <div style="clear: both;"></div>
+            }
+        </div>
     </div>
 </div>

@@ -33,7 +33,7 @@
             var user = this.userService.TryLogin(postedViewModel.Username, postedViewModel.Password);
             if (user != null)
             {
-                var claims = new List<Claim> { new Claim(CustomClaimTypes.UserId, user.Id.ToString()) };
+                var claims = new List<Claim> { new Claim(CustomClaimTypes.UserId, user.Id.ToString()), new Claim(CustomClaimTypes.FriendlyName, user.FriendlyName) };
                 if (user.AccessToken != null)
                 {
                     claims.Add(new Claim(CustomClaimTypes.AccessToken, user.AccessToken));
@@ -49,6 +49,15 @@
             var viewModel = new IndexViewModel { ErrorMessage = "Invalid login" };
 
             return this.View("Index", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            var authenticationManager = this.HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+
+            return this.RedirectToAction("Index", "Login");
         }
     }
 }

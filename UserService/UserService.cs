@@ -6,7 +6,7 @@
 
     public class UserService
     {
-        private static readonly List<User> Users = new List<User> { new User { Id = 1, Username = "steve", Password = "pwd", AccessToken = null } };
+        private static readonly List<User> Users = new List<User> { new User { Id = 1, Username = "ubersteve", Password = "pwd", FriendlyName = "Steve", AccessToken = null } };
 
         public User GetUser(int id)
         {
@@ -28,6 +28,7 @@
 
             oldUser.Username = user.Username;
             oldUser.Password = user.Password;
+            oldUser.FriendlyName = user.FriendlyName;
             oldUser.AccessToken = user.AccessToken;
         }
     }

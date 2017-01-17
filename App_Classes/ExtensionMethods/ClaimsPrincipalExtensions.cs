@@ -12,6 +12,13 @@
             return int.Parse(claim.Value);
         }
 
+        public static string FriendlyName(this ClaimsPrincipal claimsPrincipal)
+        {
+            var claim = claimsPrincipal.Claims.Single(c => c.Type == CustomClaimTypes.FriendlyName);
+
+            return claim.Value;
+        }
+
         public static string AccessToken(this ClaimsPrincipal claimsPrincipal)
         {
             var claim = claimsPrincipal.Claims.SingleOrDefault(c => c.Type == CustomClaimTypes.AccessToken);
