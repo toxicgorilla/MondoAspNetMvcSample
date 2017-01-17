@@ -11,9 +11,7 @@
         public ActionResult Index()
         {
             // HACK: Get rid of this!
-#if DEBUG
             ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-#endif
 
             var viewModel = new IndexViewModel();
 
