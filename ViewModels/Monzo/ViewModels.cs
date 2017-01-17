@@ -1,21 +1,29 @@
 ﻿namespace MondoAspNetMvcSample.ViewModels.Monzo
 {
-    using System.Collections.Generic;
-
     using Mondo;
 
-    public sealed class IndexViewModel
+    using MondoAspNetMvcSample.App_Classes;
+
+    public class MonzoViewModelBase : ViewModelBase
+    {
+        public MonzoViewModelBase()
+        {
+            this.SiteSection = SiteSection.Monzo;
+        }
+    }
+
+    public sealed class IndexViewModel : MonzoViewModelBase
     {
         public Account Account { get; set; }
 
         public Balance Balance { get; set; }
     }
 
-    public sealed class ActivateViewModel
+    public sealed class ActivateViewModel : MonzoViewModelBase
     {
     }
 
-    public sealed class OAuthCallbackViewModel
+    public sealed class OAuthCallbackViewModel : MonzoViewModelBase
     {
         public bool Error { get; set; }
     }

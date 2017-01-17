@@ -84,6 +84,10 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebIcons, Version=1.0.0.0, Culture=en-GB, processorArchitecture=MSIL">
+      <HintPath>packages\WebIcons.1.0.1.0\lib\net20\WebIcons.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Extensions" />
@@ -110,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -117,7 +122,9 @@
     <Compile Include="App_Classes\AppSettings.cs" />
     <Compile Include="App_Classes\BaseController.cs" />
     <Compile Include="App_Classes\ClaimTypes.cs" />
+    <Compile Include="App_Classes\Class1.cs" />
     <Compile Include="App_Classes\ExtensionMethods\ClaimsPrincipalExtensions.cs" />
+    <Compile Include="App_Classes\ViewModelBase.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Classes\CryptoHelper.cs" />
@@ -147,6 +154,8 @@
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\web.config" />
     <Content Include="Views\Accounts\Transactions.cshtml" />
+    <Content Include="Views\Login\_ViewStart.cshtml" />
+    <Content Include="Views\Login\_Layout.cshtml" />
     <None Include="Views\Monzo\OAuthCallback.cshtml" />
     <Content Include="Views\Home\web.config" />
     <Content Include="Web.AppSettings.config" />
@@ -154,6 +163,7 @@
     <Content Include="Views\Login\web.config" />
     <Content Include="Views\Monzo\web.config" />
     <Content Include="Views\Monzo\Activate.cshtml" />
+    <Content Include="Views\Shared\_AsciiArt.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

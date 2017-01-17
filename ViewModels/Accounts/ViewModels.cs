@@ -5,7 +5,17 @@
 
     using Mondo;
 
-    public sealed class IndexViewModel
+    using MondoAspNetMvcSample.App_Classes;
+
+    public class AccountViewModelBase : ViewModelBase
+    {
+        public AccountViewModelBase()
+        {
+            this.SiteSection = SiteSection.Accounts;
+        }
+    }
+
+    public sealed class IndexViewModel : AccountViewModelBase
     {
         #region Constructor
 
@@ -61,7 +71,7 @@
         #endregion
     }
 
-    public sealed class DetailViewModel
+    public sealed class DetailViewModel : AccountViewModelBase
     {
         public string Id { get; private set; }
 

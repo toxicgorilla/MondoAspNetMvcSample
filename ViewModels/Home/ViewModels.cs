@@ -1,6 +1,16 @@
 ﻿namespace MondoAspNetMvcSample.ViewModels.Home
 {
-    public sealed class IndexViewModel
+    using MondoAspNetMvcSample.App_Classes;
+
+    public class HomeViewModelBase : ViewModelBase
+    {
+        public HomeViewModelBase()
+        {
+            this.SiteSection = SiteSection.Home;
+        }
+    }
+
+    public sealed class IndexViewModel : HomeViewModelBase
     {
     }
 }

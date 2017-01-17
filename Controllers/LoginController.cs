@@ -15,8 +15,13 @@
         private readonly UserService userService = new UserService();
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
+            if (!string.IsNullOrWhiteSpace(returnUrl) && returnUrl == "/")
+            {
+                return this.RedirectToAction("Index", "Login");
+            }
+
             var viewModel = new IndexViewModel();
 
             return this.View("Index", viewModel);
