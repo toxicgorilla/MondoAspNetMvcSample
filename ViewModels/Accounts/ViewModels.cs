@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
 
-    using Mondo;
-
     using MondoAspNetMvcSample.App_Classes;
 
     public class AccountViewModelBase : ViewModelBase
@@ -73,8 +71,54 @@
 
     public sealed class DetailViewModel : AccountViewModelBase
     {
+        public DetailViewModel(string id, string currency, long balance)
+        {
+            this.Id = id;
+            this.Currency = currency;
+            this.Balance = balance;
+            this.Transactions = new List<TransactionViewModel>();
+        }
+
         public string Id { get; private set; }
 
-        public IList<Transaction> Transactions { get; set; }
+        public string Currency { get; private set; }
+
+        public long Balance { get; private set; }
+
+        public IList<TransactionViewModel> Transactions { get; }
+
+        public void AddTransaction(TransactionViewModel transactionViewModel)
+        {
+            this.Transactions.Add(transactionViewModel);
+        }
+
+        #region Classes
+
+        public sealed class TransactionViewModel
+        {
+            public TransactionViewModel(string id, DateTime created, string currency, long amount, long accountBalance, string notes)
+            {
+                this.Id = id;
+                this.Created = created;
+                this.Currency = currency;
+                this.Amount = amount;
+                this.AccountBalance = accountBalance;
+                this.Notes = notes;
+            }
+
+            public string Id { get; private set; }
+
+            public DateTime Created { get; private set; }
+
+            public string Currency { get; private set; }
+
+            public long Amount { get; private set; }
+
+            public long AccountBalance { get; private set; }
+
+            public string Notes { get; private set; }
+        }
+
+        #endregion
     }
 }

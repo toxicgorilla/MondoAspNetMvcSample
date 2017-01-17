@@ -156,6 +156,7 @@
     <Content Include="Views\Accounts\Transactions.cshtml" />
     <Content Include="Views\Login\_ViewStart.cshtml" />
     <Content Include="Views\Login\_Layout.cshtml" />
+    <Content Include="Views\Accounts\Detail.cshtml" />
     <None Include="Views\Monzo\OAuthCallback.cshtml" />
     <Content Include="Views\Home\web.config" />
     <Content Include="Web.AppSettings.config" />

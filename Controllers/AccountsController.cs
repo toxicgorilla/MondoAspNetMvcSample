@@ -1,6 +1,7 @@
 ﻿namespace MondoAspNetMvcSample.Controllers
 {
     using System;
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web.Mvc;
@@ -45,11 +46,43 @@
         }
 
         [HttpGet]
-        [Route("/{id:int}")]
-        public ActionResult Detail(int id)
+        [Route("~/accounts/{id}")]
+        public async Task<ActionResult> Detail(string id)
         {
-            throw new NotImplementedException();
-            ////return View();
+            var accessToken = ClaimsPrincipal.Current.AccessToken();
+            if (accessToken == null)
+            {
+                return this.RedirectToAction("Index", "Accounts");
+            }
+
+            using (var client = new MondoClient(accessToken, "https://production-api.gmon.io"))
+            {
+                var allAccounts = await client.GetAccountsAsync();
+                var account = allAccounts.SingleOrDefault(a => a.Id.ToLower() == id.ToLower());
+                if (account == null)
+                {
+                    return new HttpNotFoundResult($"Account with id {id} was not found");
+                }
+
+                var balance = await client.GetBalanceAsync(account.Id);
+                var viewModel = new DetailViewModel(account.Id, balance.Currency, balance.Value);
+
+                var transactions = await client.GetTransactionsAsync(account.Id, expand: "merchant");
+                foreach (var transaction in transactions)
+                {
+                    var transactionViewModel = new DetailViewModel.TransactionViewModel(
+                        transaction.Id,
+                        transaction.Created,
+                        transaction.Currency,
+                        transaction.Amount,
+                        transaction.AccountBalance,
+                        transaction.Notes);
+
+                    viewModel.AddTransaction(transactionViewModel);
+                }
+
+                return this.View("Detail", viewModel);
+            }
         }
     }
 }
