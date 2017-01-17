@@ -60,11 +60,6 @@
 
             this.Session.Remove("state");
 
-            // HACK: Get rid of this!
-#if DEBUG
-            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-#endif
-
             // Exchange authorization code for access token
             try
             {

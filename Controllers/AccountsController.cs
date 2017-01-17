@@ -14,6 +14,7 @@
     [RoutePrefix("accounts")]
     public class AccountsController : BaseController
     {
+        [HttpGet]
         [Route("~/accounts")]
         public async Task<ActionResult> Index()
         {
@@ -44,7 +45,7 @@
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("/{id:int}")]
         public ActionResult Detail(int id)
         {
             throw new NotImplementedException();
