@@ -114,6 +114,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Login.css">
+      <DependentUpon>Login.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Login.min.css">
+      <DependentUpon>Login.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -147,16 +153,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\web.config" />
-    <Content Include="Views\Accounts\Transactions.cshtml" />
     <Content Include="Views\Login\_ViewStart.cshtml" />
     <Content Include="Views\Login\_Layout.cshtml" />
     <Content Include="Views\Accounts\Detail.cshtml" />
+    <Content Include="Content\Login.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\Desktop.pubxml" />
     <None Include="Views\Monzo\OAuthCallback.cshtml" />
     <Content Include="Views\Home\web.config" />
